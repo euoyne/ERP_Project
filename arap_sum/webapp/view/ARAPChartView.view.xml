@@ -1,0 +1,144 @@
+<mvc:View controllerName="cl3.syncyoung.fi.arapsum.arapsum.controller.ARAPChartView"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data" 
+    xmlns:mc="sap.suite.ui.microchart"
+    xmlns:vl="sap.ui.layout">
+    
+
+
+    <!-- <Label text="회계연도" />
+    <Input id="Year" placeholder="Year" width="10rem"/>
+    <Button text="Search" icon="sap-icon://search" press="onSearch"/> -->
+    <!-- 회계연도 List box -->
+		<SearchField
+			id="searchField"
+			width="10rem"
+			placeholder="Year"
+			enableSuggestions="true"
+			search=".onSearch"
+			suggest=".onSuggest"
+			suggestionItems="{
+				path: '/ProductCollection',
+				sorter: { path: 'Name' }
+			}">
+			<SuggestionItem text="{Name}" description="{path:'Price'} {path:'CurrencyCode'}" key="{ProductId}" />
+		</SearchField>
+
+    
+    <Page id="page" title="{i18n>title}">
+        <vl:Grid defaultSpan="XL6 L6 M12 S12" width="100%">
+        <!-- <HBox  height='500px' width="1000px"> -->
+        <!-- <FlexBox alignItems="Start" class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems"> -->
+        <Panel >
+        <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
+                       vizType='column'  width="100%"
+                      vizProperties="{ title: {text : 'AR(매출)전표 조회', visible : true}}" >
+            <viz:dataset>
+                <viz.data:FlattenedDataset data="{/ARAPSet}">
+                    
+                    <viz.data:dimensions>
+                        <viz.data:DimensionDefinition name="Bpcode"  value="{bpcode}" />
+                    </viz.data:dimensions>
+
+                    <viz.data:measures>
+                        <viz.data:MeasureDefinition name="Price" value="{price}" />
+                    </viz.data:measures>    
+                
+                
+                </viz.data:FlattenedDataset>
+            </viz:dataset>
+            
+            <viz:feeds>
+                <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Price" />
+                <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Bpcode" />
+            </viz:feeds>
+
+            
+
+            <viz:dependents>
+                <viz:Popover id="idPopOver"></viz:Popover>
+            </viz:dependents>
+    
+        </viz:VizFrame>
+        </Panel>
+       
+        <!-- </vl:VerticalLayout> -->
+    <!-- </Panel> -->
+
+
+    <Panel >
+        <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
+                       vizType='column' width="100%"
+                      vizProperties="{ title: {text : 'AP(매입)전표 조회', visible : true}}" >
+            <viz:dataset>
+                <viz.data:FlattenedDataset data="{AP>/APSet}">
+                    
+                    <viz.data:dimensions>
+                        <viz.data:DimensionDefinition name="Bpcode"  value="{AP>bpcode}" />
+                    </viz.data:dimensions>
+
+                    <viz.data:measures>
+                        <viz.data:MeasureDefinition name="Price" value="{AP>price}" />
+                    </viz.data:measures>    
+                
+                
+                </viz.data:FlattenedDataset>
+            </viz:dataset>
+            
+            <viz:feeds>
+                <viz.feeds:FeedItem id='valueAxisFeed2' uid="valueAxis" type="Measure" values="Price" />
+                <viz.feeds:FeedItem id='categoryAxisFeed2' uid="categoryAxis" type="Dimension" values="Bpcode" />
+            </viz:feeds>
+
+            
+
+            <viz:dependents>
+                <viz:Popover id="idPopOver2"></viz:Popover>
+            </viz:dependents>
+    
+        </viz:VizFrame>
+        </Panel>
+
+        <!-- </FlexBox> -->
+        </vl:Grid>
+
+
+
+
+<!-- , -->
+
+        <!-- <HBox>
+        <FlexBox width="20rem" >
+			<items>
+				<mc:InteractiveLineChart points="{/ARAPSet}">
+					<mc:points>
+						<mc:InteractiveLineChartPoint value="{price}" label="{bpcode}" />
+					</mc:points>
+				</mc:InteractiveLineChart>
+			</items>
+		</FlexBox>
+
+        <FlexBox width="20rem" >
+			<items>
+				<mc:InteractiveLineChart points="{AP>/APSet}">
+					<mc:points>
+						<mc:InteractiveLineChartPoint value="{AP>price}" label="{AP>bpcode}" />
+					</mc:points>
+				</mc:InteractiveLineChart>
+			</items>
+		</FlexBox>-->
+
+
+       <!-- <FlexBox height='500px' width="500px" > -->
+            <!-- <mc:InteractiveLineChart selectionChanged="selectionChanged" press="press" points="{/ARAPSet}" >
+                <mc:InteractiveLineChartPoint value="{=parseFloat(${price})}" label="{bpcode}" selected="false"/>
+            </mc:InteractiveLineChart> -->
+        <!-- </FlexBox> -->
+
+    <!-- </HBox> -->
+    </Page>
+</mvc:View>
+
