@@ -70,6 +70,7 @@
 
 
     <Panel >
+        <Text text="hihi"/>
         <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}"
                        vizType='column' width="100%"
                       vizProperties="{ title: {text : 'AP(매입)전표 조회', visible : true}}" >
